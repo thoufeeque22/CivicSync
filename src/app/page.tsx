@@ -5,10 +5,12 @@ import { Leaf, MapPin, Send, AlertTriangle, ArrowRight, ShieldCheck, TreePine, C
 import { MOCK_NGOS, MOCK_BLUEPRINTS } from '@/lib/mock-data';
 
 export default function Home() {
-  const [complaint, setComplaint] = useState("there's a tree fallen on 4th street");
+  const [complaint, setComplaint] = useState("there's a tree fallen on Karmelicka 14");
   const [isGenerating, setIsGenerating] = useState(false);
   const [showProposal, setShowProposal] = useState(false);
   const [proposal, setProposal] = useState<any>(null);
+  const [useLiveAI, setUseLiveAI] = useState(true);
+  const [isForwarded, setIsForwarded] = useState(false);
 
   const matchedNgo = proposal ? MOCK_NGOS.find(n => n.id === proposal.matchedNgoId) : null;
   const matchedBlueprint = proposal ? MOCK_BLUEPRINTS.find(b => b.id === proposal.matchedBlueprintId) : null;
@@ -19,6 +21,7 @@ export default function Home() {
     
     setIsGenerating(true);
     setShowProposal(false);
+    setIsForwarded(false);
     
     try {
       const response = await fetch('/api/generate', {
@@ -26,7 +29,7 @@ export default function Home() {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ complaint })
+        body: JSON.stringify({ complaint, useLiveAI })
       });
       
       if (!response.ok) throw new Error('Failed to generate proposal');
@@ -76,15 +79,50 @@ export default function Home() {
           
           {/* LEFT COLUMN: Input Form */}
           <div className="bg-white rounded-2xl shadow-xl shadow-slate-200/50 border border-slate-100 overflow-hidden flex flex-col min-h-[500px]">
-            <div className="p-6 bg-slate-900 text-white">
-              <h2 className="text-xl font-semibold mb-1">What's happening?</h2>
-              <p className="text-slate-400 text-sm">Use your own words. We'll handle the bureaucracy.</p>
+            <div className="p-6 bg-slate-900 text-white flex justify-between items-center">
+              <div>
+                <h2 className="text-xl font-semibold mb-1">What's happening?</h2>
+                <p className="text-slate-400 text-sm">Use your own words. We'll handle the bureaucracy.</p>
+              </div>
+              
+              {/* DEMO TOGGLE */}
+              <label className="flex items-center gap-2 text-xs font-medium text-slate-300 bg-slate-800 px-3 py-1.5 rounded-lg cursor-pointer hover:bg-slate-700 transition-colors">
+                <input 
+                  type="checkbox" 
+                  checked={useLiveAI} 
+                  onChange={(e) => setUseLiveAI(e.target.checked)}
+                  className="rounded border-slate-500 bg-slate-700 text-blue-500 focus:ring-blue-500/50"
+                />
+                Live AI Generation
+              </label>
             </div>
             
             <form onSubmit={handleGenerate} className="flex-1 flex flex-col p-6">
+              
+              <div className="mb-4">
+                <select 
+                  className="w-full bg-white border border-slate-200 rounded-xl p-3 text-sm font-medium text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all cursor-pointer shadow-sm appearance-none"
+                  onChange={(e) => {
+                    if (e.target.value === "custom") {
+                      setComplaint("");
+                    } else {
+                      setComplaint(e.target.value);
+                    }
+                  }}
+                  defaultValue="tree"
+                >
+                  <option value="custom">✏️ Type a custom observation...</option>
+                  <option value="there's a tree fallen on Karmelicka 14">🪵 Fallen Tree on Karmelicka 14 (Quick Test)</option>
+                  <option value="There's this huge abandoned dirt lot behind the old bakery on Dietla 42. It's just collecting trash and weeds. It would be really nice if we could clear it out and maybe plant some vegetables or flowers so the neighborhood has a green space to hang out in.">🌱 Community Garden (Environment)</option>
+                  <option value="I've noticed a lot of the older folks in my apartment complex struggle to carry their groceries up the stairs, especially in winter. Some of them don't have family nearby. We need some sort of system where younger residents can help them with errands so they aren't isolated.">👵 Elderly Grocery Support (Social)</option>
+                  <option value="A lot of kids in the housing block on Starowiślna 88 don't have reliable internet access to do their schoolwork, and the nearest library is 3 miles away. It would be amazing if the city could install a secure public Wi-Fi hotspot or a digital access point near the community center.">💻 Digital Kiosk / Wi-Fi (Tech)</option>
+                  <option value="Samochody jeżdżą o wiele za szybko w pobliżu szkoły podstawowej na ulicy Długiej. Dzieci ledwo mogą bezpiecznie przejść przez ulicę. Potrzebujemy progów zwalniających albo lepszego przejścia dla pieszych, zanim dojdzie do wypadku.">🇵🇱 Traffic Safety (Polish Input)</option>
+                </select>
+              </div>
+
               <textarea 
                 className="w-full flex-1 resize-none bg-slate-50 border border-slate-200 rounded-xl p-4 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all placeholder:text-slate-400"
-                placeholder="E.g. The empty lot on 4th street is covered in trash..."
+                placeholder="E.g. The empty lot on Dietla 42 is covered in trash..."
                 value={complaint}
                 onChange={(e) => setComplaint(e.target.value)}
               />
@@ -213,8 +251,15 @@ export default function Home() {
                   <button className="text-slate-500 text-sm font-medium px-4 py-2 hover:bg-slate-100 rounded-lg transition-colors">
                     Edit Details
                   </button>
-                  <button className="bg-slate-900 text-white text-sm font-medium px-6 py-2 rounded-lg hover:bg-slate-800 transition-colors shadow-lg shadow-slate-900/20">
-                    Forward to NGO
+                  <button 
+                    onClick={() => setIsForwarded(true)}
+                    className={`text-sm font-medium px-6 py-2 rounded-lg transition-all shadow-lg ${
+                      isForwarded 
+                        ? 'bg-emerald-500 text-white shadow-emerald-500/20 pointer-events-none' 
+                        : 'bg-slate-900 text-white hover:bg-slate-800 shadow-slate-900/20'
+                    }`}
+                  >
+                    {isForwarded ? 'Forwarded Successfully ✓' : 'Forward to NGO'}
                   </button>
                 </div>
                 
