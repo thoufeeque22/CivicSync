@@ -1,36 +1,32 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 CivicSync
 
-## Getting Started
+**Turn local ideas into civic action.**
+*Submitted to HackYeah 2026 — Smart City Category*
 
-First, run the development server:
+CivicSync is an AI-powered translation engine that allows residents to report infrastructure issues in plain language. The local AI engine instantly translates these casual observations into highly structured, formal civic proposals and routes them to the correct local NGO and verified city blueprint.
 
+---
+
+## 👨‍⚖️ Note to Judges: How to Test the App
+
+We built CivicSync with a dual-engine approach to make evaluation as easy as possible for you.
+
+### 1. Install & Run
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. The "Live AI" Toggle (Important!)
+In the top right corner of the input card, you will see a toggle for **"Live AI Generation"**.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+* 🟢 **If you want to test the real AI:** You must have [Ollama](https://ollama.com/) running locally with the `gemma4:latest` (or `llama3.1`) model installed. Leave the toggle **checked**, and the app will generate the proposal dynamically using local AI.
+* ⚡ **If you want a fast evaluation (Recommended):** If you do not have Ollama installed, or if you simply don't want to wait 20 seconds for the LLM to generate text, **uncheck the toggle**. The app will instantly fall back to our mock-data engine, allowing you to experience the UI, routing, and proposal formatting with zero friction.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🛠 Tech Stack
+- **Frontend:** Next.js 15 (App Router), Tailwind CSS, shadcn/ui
+- **AI Engine:** Local Ollama integration (Gemma 4) for extreme privacy and zero-cloud dependency
+- **Architecture:** Fallback resilience ensuring the app never crashes even if AI rate limits occur

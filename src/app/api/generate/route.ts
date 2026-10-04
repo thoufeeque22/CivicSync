@@ -65,64 +65,80 @@ export async function POST(req: Request) {
       
       if (lowerComplaint.includes("garden") || lowerComplaint.includes("weeds")) {
         return NextResponse.json({
-          title: "Urban Community Garden Conversion Project",
-          category: "Environment",
-          summary: "This proposal outlines a resident-led initiative to clear the abandoned lot on 5th Street and transform it into a vibrant community garden, reducing local blight and increasing green space.",
-          matchedBlueprintId: "bp-101",
-          matchedNgoId: "ngo-001",
-          estimatedBudget: "500 - 1,500 PLN",
-          nextSteps: [
-            "Petition city council for temporary land-use authorization.",
-            "Schedule a neighborhood weekend cleanup event.",
-            "Coordinate with Green Horizons Initiative to build initial planter boxes."
+          "title": "Revitalization of Abandoned Urban Lot into Community Garden",
+          "category": "Environment",
+          "summary": "A large, abandoned dirt lot is currently an eyesore accumulating trash and weeds, detracting from neighborhood aesthetics. Converting this space into a community garden will provide residents with a shared green space for recreation and growing fresh produce.",
+          "matchedBlueprintId": "bp-101",
+          "matchedNgoId": "ngo-001",
+          "estimatedBudget": "500 - 1,500 PLN",
+          "nextSteps": [
+            "Form a neighborhood action committee to secure necessary permits and volunteer labor.",
+            "Conduct soil testing and design the garden layout with raised beds appropriate for community use.",
+            "Engage Green Horizons Initiative to secure resource allocation, planting advice, and waste cleanup."
           ]
         });
       }
       
       if (lowerComplaint.includes("older") || lowerComplaint.includes("groceries")) {
         return NextResponse.json({
-          title: "Elderly Grocery & Companionship Network",
-          category: "Elderly Support",
-          summary: "A neighborhood support system designed to assist elderly residents with heavy grocery deliveries and winter errands, directly reducing social isolation in local apartment complexes.",
-          matchedBlueprintId: "bp-104",
-          matchedNgoId: "ngo-004",
-          estimatedBudget: "100 - 300 PLN",
-          nextSteps: [
-            "Distribute volunteer sign-up sheets in apartment lobbies.",
-            "Partner with ElderCare Connect for volunteer vetting guidelines.",
-            "Establish a weekly shared grocery run schedule."
+          "title": "Support System for Elderly Residents and Grocery Assistance",
+          "category": "Elderly Support",
+          "summary": "Many senior residents struggle with mobility issues, particularly carrying groceries up stairs, leading to isolation. Implementing a structured volunteer network can provide necessary physical support and social connection.",
+          "matchedBlueprintId": "bp-104",
+          "matchedNgoId": "ngo-004",
+          "estimatedBudget": "100 - 300 PLN",
+          "nextSteps": [
+            "Conduct a resident survey to gauge demand and identify specific support needs within the complex.",
+            "Connect with ElderCare Connect to establish volunteer training protocols and resource mobilization.",
+            "Formalize an initial program pilot focusing on 2-3 units to measure impact and refine procedures."
           ]
         });
       }
       
       if (lowerComplaint.includes("kids") || lowerComplaint.includes("internet") || lowerComplaint.includes("wi-fi")) {
         return NextResponse.json({
-          title: "Community Center Public Wi-Fi Expansion",
-          category: "Technology",
-          summary: "This project aims to install a secure, high-speed public Wi-Fi kiosk near the lower-income housing block to ensure students have reliable digital access for their education.",
-          matchedBlueprintId: "bp-105",
-          matchedNgoId: "ngo-005",
-          estimatedBudget: "800 - 2,000 PLN",
-          nextSteps: [
-            "Conduct a site survey to determine optimal router placement.",
-            "Source refurbished hardware through TechForGood Labs.",
-            "Host a digital literacy workshop to introduce the new kiosk."
+          "title": "Establishing Community Digital Access Point for Students",
+          "category": "Technology",
+          "summary": "Many students in the Starowiślna 88 area lack reliable internet access crucial for modern schoolwork. Implementing a secure, public Wi-Fi hotspot near the community center would significantly bridge this digital divide.",
+          "matchedBlueprintId": "bp-105",
+          "matchedNgoId": "ngo-005",
+          "estimatedBudget": "800 - 2,000 PLN",
+          "nextSteps": [
+            "Conduct a needs assessment survey with local parents and schools to gauge demand.",
+            "Finalize the optimal physical location for the digital kiosk in consultation with city planning.",
+            "Engage TechForGood Labs to manage installation, maintenance, and basic usage training."
+          ]
+        });
+      }
+
+      if (lowerComplaint.includes("samochody") || lowerComplaint.includes("szybko") || lowerComplaint.includes("progów")) {
+        return NextResponse.json({
+          "title": "Enhancing Pedestrian Safety and Implementing Traffic Calming near Długa Primary School",
+          "category": "Infrastructure",
+          "summary": "The presence of excessive speeding vehicles near the primary school on Długa Street poses a significant danger to children crossing the street. Immediate intervention is needed, such as installing speed bumps or improving crosswalk accessibility, to prevent potential accidents.",
+          "matchedBlueprintId": "bp-103",
+          "matchedNgoId": "ngo-003",
+          "estimatedBudget": "500 - 1,500 PLN",
+          "nextSteps": [
+            "Organize a neighborhood safety walk and map high-risk zones immediately.",
+            "Coordinate with local traffic authorities for speed monitoring and enforcement.",
+            "Collaborate with SafeStreets Alliance to advocate for and install physical calming measures."
           ]
         });
       }
       
-      // Default / Tree / Traffic Fallback
+      // Default / Tree Fallback
       return NextResponse.json({
-        title: "Emergency Roadway Hazard Mitigation",
-        category: "Infrastructure",
-        summary: "An urgent proposal to address immediate pedestrian and vehicular safety hazards by implementing targeted traffic calming measures or removing direct road blockages in affected school or residential zones.",
-        matchedBlueprintId: "bp-103",
-        matchedNgoId: "ngo-003",
-        estimatedBudget: "500 - 1,500 PLN",
-        nextSteps: [
-          "Deploy immediate hazard markers or temporary speed deterrents.",
-          "File formal hazard report with the Department of Transportation.",
-          "Partner with SafeStreets Alliance to monitor site safety."
+        "title": "Addressing Fallen Tree and Improving Local Greenspace Safety",
+        "category": "Environment",
+        "summary": "A large fallen tree presents an immediate safety hazard and degrades the aesthetic quality of the neighborhood. Implementing proactive green infrastructure maintenance will ensure safe passage and restore natural beauty.",
+        "matchedBlueprintId": "bp-101",
+        "matchedNgoId": "ngo-001",
+        "estimatedBudget": "500 - 1,500 PLN",
+        "nextSteps": [
+          "Engage local council for immediate hazardous debris removal.",
+          "Organize community volunteers for site cleanup and safety marking.",
+          "Partner with Green Horizons Initiative to develop a sustainable replanting or garden space plan."
         ]
       });
     }

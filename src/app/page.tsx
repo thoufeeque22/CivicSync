@@ -1,11 +1,11 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Leaf, MapPin, Send, AlertTriangle, ArrowRight, ShieldCheck, TreePine, CarFront, HeartHandshake } from 'lucide-react';
+import { Leaf, MapPin, Send, AlertTriangle, ArrowRight, ShieldCheck, TreePine, CarFront, HeartHandshake, Camera } from 'lucide-react';
 import { MOCK_NGOS, MOCK_BLUEPRINTS } from '@/lib/mock-data';
 
 export default function Home() {
-  const [complaint, setComplaint] = useState("there's a tree fallen on Karmelicka 14");
+  const [complaint, setComplaint] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
   const [showProposal, setShowProposal] = useState(false);
   const [proposal, setProposal] = useState<any>(null);
@@ -66,9 +66,9 @@ export default function Home() {
 
       <main className="max-w-6xl mx-auto px-6 py-12 lg:py-24">
         
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className="text-center max-w-4xl mx-auto mb-16">
           <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6">
-            Turn local ideas into <span className="text-blue-600">civic action.</span>
+            Turn local ideas into <span className="text-blue-600 whitespace-nowrap">civic action.</span>
           </h1>
           <p className="text-lg text-slate-600">
             Don't let good ideas go unnoticed. Tell us what your neighborhood needs—whether it's fixing a hazard or building something new—and our AI will instantly draft a formal project proposal and match it with local NGOs and city funding.
@@ -109,7 +109,7 @@ export default function Home() {
                       setComplaint(e.target.value);
                     }
                   }}
-                  defaultValue="tree"
+                  defaultValue="custom"
                 >
                   <option value="custom">✏️ Type a custom observation...</option>
                   <option value="there's a tree fallen on Karmelicka 14">🪵 Fallen Tree on Karmelicka 14 (Quick Test)</option>
@@ -134,6 +134,9 @@ export default function Home() {
                   </span>
                   <button type="button" className="text-xs font-semibold text-blue-600 bg-blue-50 border border-blue-100 px-3 py-1.5 rounded-lg hover:bg-blue-100 transition-colors flex items-center gap-1">
                     <MapPin className="h-3 w-3" /> Use My Location
+                  </button>
+                  <button type="button" className="text-xs font-semibold text-slate-600 bg-white border border-slate-200 px-3 py-1.5 rounded-lg hover:bg-slate-50 transition-colors flex items-center gap-1 shadow-sm">
+                    <Camera className="h-3 w-3" /> Add Photo
                   </button>
                 </div>
                 
