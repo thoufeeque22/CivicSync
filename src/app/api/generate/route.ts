@@ -145,7 +145,12 @@ export async function POST(req: Request) {
 
     const modelsToTry = [
       "ollama:gemma4:latest",
-      "gemini:gemini-flash-latest"
+      "gemini:gemini-3.8-flash",
+      "gemini:gemini-3.7-flash",
+      "gemini:gemini-3.6-flash",
+      "gemini:gemini-3.5-flash",
+      "gemini:gemini-flash-latest",
+      "gemini:gemini-pro-latest"
     ];
 
     let lastError = null;
