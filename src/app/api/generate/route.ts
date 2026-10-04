@@ -127,18 +127,18 @@ export async function POST(req: Request) {
         });
       }
       
-      // Default / Tree Fallback
+      // Default / Custom Text Fallback
       return NextResponse.json({
-        "title": "Addressing Fallen Tree and Improving Local Greenspace Safety",
-        "category": "Environment",
-        "summary": "A large fallen tree presents an immediate safety hazard and degrades the aesthetic quality of the neighborhood. Implementing proactive green infrastructure maintenance will ensure safe passage and restore natural beauty.",
-        "matchedBlueprintId": "bp-101",
-        "matchedNgoId": "ngo-001",
-        "estimatedBudget": "500 - 1,500 PLN",
+        "title": "⚠️ THIS IS A HARDCODED MOCK RESPONSE",
+        "category": "System Demo",
+        "summary": "This is a generic placeholder proposal because 'Live AI Generation' is currently disabled and your text did not match any of our predefined testing keywords. To generate a real, dynamic proposal based on your exact text, please check the 'Live AI Generation' box in the top right corner.",
+        "matchedBlueprintId": "bp-mock",
+        "matchedNgoId": "ngo-mock",
+        "estimatedBudget": "0 PLN",
         "nextSteps": [
-          "Engage local council for immediate hazardous debris removal.",
-          "Organize community volunteers for site cleanup and safety marking.",
-          "Partner with Green Horizons Initiative to develop a sustainable replanting or garden space plan."
+          "Check the 'Live AI Generation' box in the UI.",
+          "Ensure your API key or local Ollama engine is running.",
+          "Click Generate again to see the real AI in action!"
         ]
       });
     }
