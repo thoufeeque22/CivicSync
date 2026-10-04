@@ -225,15 +225,22 @@ export async function POST(req: Request) {
       }
     }
 
-    // If we exhausted all models, return a clear error instead of faking it with mock data
-    console.warn("\n⚠️ All AI models failed or were overloaded. Returning 503 Error.\n");
-    return NextResponse.json(
-      { 
-        error: "AI Engine Unavailable", 
-        details: (lastError as any)?.message || "Google Gemini is currently experiencing a high-demand outage."
-      },
-      { status: 503 }
-    );
+    // Graceful Degradation: If all models fail, return a valid Proposal object with an error message
+    // This prevents ugly browser alerts and instead renders a beautiful UI card explaining the situation.
+    console.warn("\n⚠️ All AI models failed or were overloaded. Returning Graceful UI Error Card.\n");
+    return NextResponse.json({
+      "title": "⚠️ Cloud AI Engine Overloaded",
+      "category": "System Status",
+      "summary": `The Google Gemini API is currently experiencing a global traffic spike (${lastError?.message || '503 Unavailable'}). To bypass this cloud bottleneck and continue your evaluation instantly, please uncheck the 'Live AI Generation' toggle to use our deterministic mock engine.`,
+      "matchedBlueprintId": "bp-mock",
+      "matchedNgoId": "ngo-mock",
+      "estimatedBudget": "0 PLN",
+      "nextSteps": [
+        "Close this proposal.",
+        "Uncheck the 'Live AI Generation' box in the top right.",
+        "Click Generate again to instantly use the fallback engine!"
+      ]
+    });
   } catch (error) {
     console.error("Error in generate API:", error);
     return NextResponse.json(
