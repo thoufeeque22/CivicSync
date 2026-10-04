@@ -41,6 +41,7 @@ yarn-error.log*
 next-env.d.ts
 
 # Hackathon assets
-hackathon/*
-!hackathon/*.pdf
-!hackathon/*.mov
+hackathon/*.md
+hackathon/*.png
+hackathon/*.js
+hackathon/videos/
