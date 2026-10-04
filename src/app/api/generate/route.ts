@@ -225,21 +225,15 @@ export async function POST(req: Request) {
       }
     }
 
-    // If we exhausted all models, return the static mock fallback to ensure the demo survives!
-    console.warn("\n⚠️ All AI models failed or were overloaded. Returning graceful fallback (Mock Data).\n");
-    return NextResponse.json({
-      "title": "Addressing Fallen Tree and Improving Local Greenspace Safety",
-      "category": "Environment",
-      "summary": "A large fallen tree presents an immediate safety hazard and degrades the aesthetic quality of the neighborhood. Implementing proactive green infrastructure maintenance will ensure safe passage and restore natural beauty.",
-      "matchedBlueprintId": "bp-101",
-      "matchedNgoId": "ngo-001",
-      "estimatedBudget": "500 - 1,500 PLN",
-      "nextSteps": [
-        "Engage local council for immediate hazardous debris removal.",
-        "Organize community volunteers for site cleanup and safety marking.",
-        "Partner with Green Horizons Initiative to develop a sustainable replanting or garden space plan."
-      ]
-    });
+    // If we exhausted all models, return a clear error instead of faking it with mock data
+    console.warn("\n⚠️ All AI models failed or were overloaded. Returning 503 Error.\n");
+    return NextResponse.json(
+      { 
+        error: "AI Engine Unavailable", 
+        details: lastError?.message || "Google Gemini is currently experiencing a high-demand outage."
+      },
+      { status: 503 }
+    );
   } catch (error) {
     console.error("Error in generate API:", error);
     return NextResponse.json(

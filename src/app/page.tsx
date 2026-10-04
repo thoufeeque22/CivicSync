@@ -32,14 +32,17 @@ export default function Home() {
         body: JSON.stringify({ complaint, useLiveAI })
       });
       
-      if (!response.ok) throw new Error('Failed to generate proposal');
+      if (!response.ok) {
+        const errData = await response.json().catch(() => null);
+        throw new Error(errData?.details || 'Failed to generate proposal');
+      }
       
       const data = await response.json();
       setProposal(data);
       setShowProposal(true);
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
-      alert('Error generating proposal. Check console for details.');
+      alert(`⚠️ AI Engine Error\n\n${error.message}\n\n💡 TIP: Uncheck the "Live AI Generation" box to bypass the cloud and instantly use our hyper-realistic Mock Engine!`);
     } finally {
       setIsGenerating(false);
     }
