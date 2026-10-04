@@ -231,7 +231,7 @@ export async function POST(req: Request) {
     return NextResponse.json({
       "title": "⚠️ Cloud AI Engine Overloaded",
       "category": "System Status",
-      "summary": `The Google Gemini API is currently experiencing a global traffic spike (${lastError?.message || '503 Unavailable'}). To bypass this cloud bottleneck and continue your evaluation instantly, please uncheck the 'Live AI Generation' toggle to use our deterministic mock engine.`,
+      "summary": `The Google Gemini API is currently experiencing a global traffic spike (${(lastError as any)?.message || '503 Unavailable'}). To bypass this cloud bottleneck and continue your evaluation instantly, please uncheck the 'Live AI Generation' toggle to use our deterministic mock engine.`,
       "matchedBlueprintId": "bp-mock",
       "matchedNgoId": "ngo-mock",
       "estimatedBudget": "0 PLN",
