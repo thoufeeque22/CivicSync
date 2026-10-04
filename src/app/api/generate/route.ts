@@ -230,7 +230,7 @@ export async function POST(req: Request) {
     return NextResponse.json(
       { 
         error: "AI Engine Unavailable", 
-        details: lastError?.message || "Google Gemini is currently experiencing a high-demand outage."
+        details: (lastError as any)?.message || "Google Gemini is currently experiencing a high-demand outage."
       },
       { status: 503 }
     );
