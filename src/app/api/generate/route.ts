@@ -228,16 +228,16 @@ export async function POST(req: Request) {
     // If we exhausted all models, return the static mock fallback to ensure the demo survives!
     console.warn("\n⚠️ All AI models failed or were overloaded. Returning graceful fallback (Mock Data).\n");
     return NextResponse.json({
-      title: "Emergency Roadway Obstruction Mitigation - 4th Street",
-      category: "Infrastructure",
-      summary: "This proposal addresses a hazardous fallen tree at 4th Street that currently obstructs traffic and endangers pedestrians. The project aims to restore safe passage and implement infrastructure safety measures to prevent future blockages.",
-      matchedBlueprintId: "bp-103",
-      matchedNgoId: "ngo-003",
-      estimatedBudget: "500 - 1,500 PLN",
-      nextSteps: [
-        "Alert municipal emergency services for immediate debris removal and site securing.",
-        "Conduct a safety audit of the remaining tree canopy.",
-        "Liaise with SafeStreets Alliance to integrate this location into the hazard monitoring network."
+      "title": "Addressing Fallen Tree and Improving Local Greenspace Safety",
+      "category": "Environment",
+      "summary": "A large fallen tree presents an immediate safety hazard and degrades the aesthetic quality of the neighborhood. Implementing proactive green infrastructure maintenance will ensure safe passage and restore natural beauty.",
+      "matchedBlueprintId": "bp-101",
+      "matchedNgoId": "ngo-001",
+      "estimatedBudget": "500 - 1,500 PLN",
+      "nextSteps": [
+        "Engage local council for immediate hazardous debris removal.",
+        "Organize community volunteers for site cleanup and safety marking.",
+        "Partner with Green Horizons Initiative to develop a sustainable replanting or garden space plan."
       ]
     });
   } catch (error) {
