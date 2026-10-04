@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Leaf, MapPin, Send, AlertTriangle, ArrowRight, ShieldCheck, TreePine, CarFront, HeartHandshake, Camera } from 'lucide-react';
+import { Leaf, MapPin, Send, AlertTriangle, ArrowRight, ShieldCheck, TreePine, CarFront, HeartHandshake, Camera, X, Info } from 'lucide-react';
 import { MOCK_NGOS, MOCK_BLUEPRINTS } from '@/lib/mock-data';
 
 export default function Home() {
@@ -11,6 +11,7 @@ export default function Home() {
   const [proposal, setProposal] = useState<any>(null);
   const [useLiveAI, setUseLiveAI] = useState(true);
   const [isForwarded, setIsForwarded] = useState(false);
+  const [errorModal, setErrorModal] = useState<string | null>(null);
 
   const matchedNgo = proposal ? MOCK_NGOS.find(n => n.id === proposal.matchedNgoId) : null;
   const matchedBlueprint = proposal ? MOCK_BLUEPRINTS.find(b => b.id === proposal.matchedBlueprintId) : null;
@@ -42,7 +43,7 @@ export default function Home() {
       setShowProposal(true);
     } catch (error: any) {
       console.error(error);
-      alert(`⚠️ AI Engine Error\n\n${error.message}\n\n💡 TIP: Uncheck the "Live AI Generation" box to bypass the cloud and instantly use our hyper-realistic Mock Engine!`);
+      setErrorModal(error.message);
     } finally {
       setIsGenerating(false);
     }
@@ -274,6 +275,50 @@ export default function Home() {
           </div>
         </div>
       </main>
+
+      {/* Custom Error Modal Overlay */}
+      {errorModal && (
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm"
+          onClick={() => setErrorModal(null)}
+        >
+          <div 
+            className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 transform transition-all"
+            onClick={e => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-3 text-rose-600">
+                <AlertTriangle className="w-6 h-6" />
+                <h3 className="font-bold text-lg">AI Engine Unavailable</h3>
+              </div>
+              <button 
+                onClick={() => setErrorModal(null)}
+                className="text-slate-400 hover:text-slate-600 transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            
+            <p className="text-slate-600 text-sm leading-relaxed mb-6">
+              {errorModal}
+            </p>
+
+            <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-6 flex gap-3">
+              <Info className="w-5 h-5 text-amber-600 shrink-0" />
+              <p className="text-amber-800 text-sm">
+                <strong>Demo Tip:</strong> Uncheck the <span className="font-semibold text-amber-900">Live AI Generation</span> toggle in the top right of the input card to instantly bypass the cloud and use our deterministic fallback engine!
+              </p>
+            </div>
+
+            <button 
+              onClick={() => setErrorModal(null)}
+              className="w-full bg-slate-900 text-white font-medium py-3 rounded-xl hover:bg-slate-800 transition-colors shadow-lg shadow-slate-900/20"
+            >
+              Dismiss
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
