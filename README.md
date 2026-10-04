@@ -5,11 +5,13 @@
 
 CivicSync is an AI-powered translation engine that allows residents to report infrastructure issues in plain language. The local AI engine instantly translates these casual observations into highly structured, formal civic proposals and routes them to the correct local NGO and verified city blueprint.
 
+**✨ TRY THE LIVE APP:** [https://civic-sync-gold.vercel.app](https://civic-sync-gold.vercel.app)
+
 ---
 
 ## 👨‍⚖️ Note to Judges: How to Test the App
 
-We built CivicSync with a dual-engine approach to make evaluation as easy as possible for you.
+We built CivicSync with a highly resilient cloud waterfall architecture. **We highly recommend testing the live app linked above.** If you prefer to test the source code locally, follow the steps below.
 
 ### 1. Install & Run
 ```bash
